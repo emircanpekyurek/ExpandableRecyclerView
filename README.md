@@ -8,7 +8,7 @@
 ## Installation
 (app) build.gradle:
 ```gradle
-implementation 'com.github.emircanpekyurek:ExpandableRecyclerView:1.0'
+implementation 'com.github.emircanpekyurek:ExpandableRecyclerView:1.0.0'
 ```
 
 #### AND
