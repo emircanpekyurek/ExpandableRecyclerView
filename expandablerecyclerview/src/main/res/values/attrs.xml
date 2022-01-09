@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ExpandableItemView">
+        <attr name="expanded_icon" format="reference" />
+        <attr name="expanded_icon_tint" format="color" />
+        <attr name="collapsed_icon" format="reference" />
+        <attr name="collapsed_icon_tint" format="color" />
+        <attr name="show_view_line" format="boolean" />
+        <attr name="line_color" format="color" />
+        <attr name="title" format="string" />
+        <attr name="title_color" format="color" />
+        <attr name="android:textSize" format="dimension" />
+        <attr name="animation_duration" format="integer" />
+        <attr name="recycler_padding" format="dimension" />
+        <attr name="android:orientation" format="flags" />
+        <attr name="recycler_span_count" format="integer" />
+        <attr name="recycler_layout_manager">
+            <enum name="LinearLayoutManager" value="0" />
+            <enum name="GridLayoutManager" value="1" />
+            <enum name="StaggeredGridLayoutManager" value="2" />
+        </attr>
+    </declare-styleable>
+</resources>

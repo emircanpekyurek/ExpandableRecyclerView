@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp">
+
+        <Button
+            android:id="@+id/btnExpandableRecyclerView"
+            android:text="OPEN EXPANDABLE RECYCLER VIEW"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.emircan.expandablerecyclerview.ExpandableItemView
+            android:id="@+id/defaultView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Default View" />
+
+        <com.emircan.expandablerecyclerview.ExpandableItemView
+            android:id="@+id/gridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:recycler_layout_manager="GridLayoutManager"
+            app:recycler_span_count="3"
+            app:title="Grid View" />
+
+        <com.emircan.expandablerecyclerview.ExpandableItemView
+            android:id="@+id/customGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:animation_duration="500"
+            app:collapsed_icon="@drawable/ic_baseline_spa_24"
+            app:collapsed_icon_tint="#1619A1"
+            app:line_color="#801280"
+            app:show_view_line="true"
+
+
+            app:title="Custom Grid View"
+            app:title_color="#9C0000"
+
+            app:recycler_layout_manager="GridLayoutManager"
+            app:recycler_padding="20dp"
+            app:recycler_span_count="3"
+
+
+            app:expanded_icon="@drawable/ic_baseline_star_border_24"
+            app:expanded_icon_tint="#673AB7"
+
+            />
+
+        <com.emircan.expandablerecyclerview.ExpandableItemView
+            android:id="@+id/imageGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:animation_duration="500"
+            app:collapsed_icon_tint="#00f"
+            app:line_color="#f0f"
+            app:expanded_icon_tint="#00770C"
+            app:recycler_layout_manager="GridLayoutManager"
+            app:recycler_span_count="3"
+            app:show_view_line="true"
+            app:title="Image Grid View"
+            app:title_color="#f00" />
+
+        <com.emircan.expandablerecyclerview.ExpandableItemView
+            android:id="@+id/imageHorizontalView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:animation_duration="100"
+            app:collapsed_icon_tint="#00f"
+            app:line_color="#594959"
+            app:expanded_icon_tint="#00770C"
+
+            app:recycler_layout_manager="LinearLayoutManager"
+            android:orientation="horizontal"
+
+            app:show_view_line="true"
+            app:title="Horizontal Image"
+            app:title_color="#f00" />
+
+        <com.emircan.expandablerecyclerview.ExpandableItemView
+            android:id="@+id/imageVerticalView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:animation_duration="50"
+            app:collapsed_icon_tint="#00f"
+            app:line_color="#594959"
+            app:expanded_icon_tint="#00770C"
+            app:recycler_layout_manager="LinearLayoutManager"
+            app:show_view_line="true"
+            app:title="Vertical Image"
+            app:title_color="#f00" />
+
+        <com.emircan.expandablerecyclerview.ExpandableItemView
+            android:id="@+id/imageStaggeredGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:animation_duration="1500"
+            app:collapsed_icon_tint="#00f"
+            app:line_color="#594959"
+            app:expanded_icon_tint="#00770C"
+            app:recycler_layout_manager="StaggeredGridLayoutManager"
+            app:recycler_span_count="2"
+            app:show_view_line="true"
+            app:title="Staggered Grid Image"
+            app:title_color="#f00" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>
