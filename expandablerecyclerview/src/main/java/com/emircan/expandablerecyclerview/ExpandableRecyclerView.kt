@@ -21,6 +21,6 @@ class ExpandableRecyclerView @JvmOverloads constructor(
         list: List<ExpandableItem>,
         singleExpandItem: Boolean = true
     ) {
-        adapter = ExpandableRecyclerAdapter(layoutId, list)
+        adapter = ExpandableRecyclerAdapter(layoutId, list, singleExpandItem)
     }
 }
