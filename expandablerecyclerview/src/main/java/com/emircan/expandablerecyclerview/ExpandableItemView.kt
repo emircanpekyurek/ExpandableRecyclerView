@@ -124,7 +124,7 @@ class ExpandableItemView @JvmOverloads constructor(
         }
     }
 
-    fun setData(adapter: RecyclerView.Adapter<*>) {
+    fun setData(adapter: RecyclerView.Adapter<*>?) {
         recyclerView.adapter = adapter
     }
 
@@ -162,6 +162,10 @@ class ExpandableItemView @JvmOverloads constructor(
 
     private fun setIcon(@DrawableRes drawableId: Int) {
         ivArrow.setImageDrawable(ContextCompat.getDrawable(context, drawableId))
+    }
+
+    fun setArrowVisibility(visible: Boolean) {
+        ivArrow.isVisible = visible
     }
 
     private fun collapseRecyclerView(showAnimation: Boolean = isAnimationEnabled()) {

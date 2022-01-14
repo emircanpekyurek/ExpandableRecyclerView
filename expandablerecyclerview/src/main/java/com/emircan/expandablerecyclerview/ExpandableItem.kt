@@ -4,5 +4,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 data class ExpandableItem(
     val title: String,
-    val adapter: RecyclerView.Adapter<*>
+    val adapter: RecyclerView.Adapter<*>? = null,
+    val notExpandableClickListener: (() -> Unit)? = null
 )

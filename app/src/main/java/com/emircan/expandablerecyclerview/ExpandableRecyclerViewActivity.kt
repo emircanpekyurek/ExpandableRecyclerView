@@ -26,7 +26,13 @@ class ExpandableRecyclerViewActivity : AppCompatActivity() {
         }
         list.add(ExpandableItem("Item 1 (Text)", textAdapter))
         list.add(ExpandableItem("Item 2 (Text)", textAdapter))
-        for (i in 3..20) {
+        for (i in 3..26) {
+            if (i % 6 == 0) {
+                list.add(ExpandableItem("Item Not Extendable $i") {
+                    Toast.makeText(this, "Item : $i", Toast.LENGTH_SHORT).show()
+                })
+                continue
+            }
             list.add(ExpandableItem("Item $i (Image)", ImageAdapter(i) {
                 Toast.makeText(this, "Item : $it", Toast.LENGTH_SHORT).show()
             }))

@@ -35,21 +35,30 @@ class ExpandableRecyclerAdapter(
                 view.collapse(false)
             }
             view.setTitle(item.title)
-            view.setData(item.adapter)
-            if (singleExpandItem) {
+            view.setArrowVisibility(item.notExpandableClickListener == null)
+
+            if (item.adapter != null) {
+                view.setData(item.adapter)
                 view.setOnClickListener {
-                    if (view.isExpanded.not()) {
-                        if (expandItemPosition != position) {
-                            expandItemPosition?.let { expandPosition ->
-                                expandItemPosition = expandPosition
-                                notifyItemChanged(expandPosition)
+                    if (singleExpandItem) {
+                        if (view.isExpanded.not()) {
+                            if (expandItemPosition != position) {
+                                expandItemPosition?.let { expandPosition ->
+                                    expandItemPosition = expandPosition
+                                    notifyItemChanged(expandPosition)
+                                }
                             }
+                            expandItemPosition = position
+                        } else {
+                            expandItemPosition = null
                         }
-                        expandItemPosition = position
-                    } else {
-                        expandItemPosition = null
                     }
                     view.toggle()
+                }
+            } else if (item.notExpandableClickListener != null) {
+                view.setData(null)
+                view.setOnClickListener {
+                    item.notExpandableClickListener.invoke()
                 }
             }
         }
