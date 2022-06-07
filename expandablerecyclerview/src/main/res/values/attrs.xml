@@ -21,4 +21,8 @@
             <enum name="StaggeredGridLayoutManager" value="2" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="ExpandableRecyclerView">
+        <attr name="singleExpandItem" format="boolean" />
+    </declare-styleable>
 </resources>

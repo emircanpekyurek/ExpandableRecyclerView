@@ -12,15 +12,25 @@ class ExpandableRecyclerView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : RecyclerView(context, attrs, defStyleAttr) {
 
+    private var isSingleExpandItem: Boolean = true
+
     init {
         layoutManager = LinearLayoutManager(context)
+        context.obtainStyledAttributes(
+            attrs,
+            R.styleable.ExpandableRecyclerView,
+        ).run {
+            isSingleExpandItem = getBoolean(R.styleable.ExpandableRecyclerView_singleExpandItem, true)
+            recycle()
+        }
     }
 
     fun setData(
         @LayoutRes layoutId: Int,
         list: List<ExpandableItem>,
-        singleExpandItem: Boolean = true
+        singleExpandItem: Boolean = isSingleExpandItem
     ) {
+        isSingleExpandItem = singleExpandItem
         adapter = ExpandableRecyclerAdapter(layoutId, list, singleExpandItem)
     }
 }
