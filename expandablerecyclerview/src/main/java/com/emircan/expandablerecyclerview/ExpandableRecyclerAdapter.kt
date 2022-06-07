@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 class ExpandableRecyclerAdapter(
     @LayoutRes private val layoutId: Int,
     private val list: List<ExpandableItem>,
-    private val singleExpandItem: Boolean = true
+    private val singleExpandItem: Boolean = true,
+    private val keepExpandCollapseState: Boolean = true
 ) : RecyclerView.Adapter<ExpandableRecyclerAdapter.ViewHolder>() {
 
     private var expandItemPosition: Int? = null
@@ -29,37 +30,53 @@ class ExpandableRecyclerAdapter(
     inner class ViewHolder(private val view: ExpandableItemView) : RecyclerView.ViewHolder(view) {
 
         fun bind(item: ExpandableItem, position: Int) {
-            if (expandItemPosition == position) {
+            if (keepExpandCollapseState && (expandItemPosition == position || item.isExpanded)) {
                 view.expand(false)
-            } else {
+                item.isExpanded = true
+            }
+            if (item.isExpanded.not() || (singleExpandItem && expandItemPosition != position)) {
                 view.collapse(false)
+                item.isExpanded = false
             }
             view.setTitle(item.title)
             view.setArrowVisibility(item.notExpandableClickListener == null)
 
             if (item.adapter != null) {
-                view.setData(item.adapter)
-                view.setOnClickListener {
-                    if (singleExpandItem) {
-                        if (view.isExpanded.not()) {
-                            if (expandItemPosition != position) {
-                                expandItemPosition?.let { expandPosition ->
-                                    expandItemPosition = expandPosition
-                                    notifyItemChanged(expandPosition)
-                                }
-                            }
+                initExpandableRow(item, position)
+            } else if (item.notExpandableClickListener != null) {
+                initNotExpandableRow(item)
+            }
+        }
+
+        private fun initExpandableRow(item: ExpandableItem, position: Int) {
+            view.setData(item.adapter)
+            view.setOnClickListener {
+                onExpandableItemClicked(item, position)
+            }
+        }
+
+        private fun onExpandableItemClicked(item: ExpandableItem, position: Int) {
+            if (singleExpandItem) {
+                if (view.isExpanded.not()) {
+                    if (expandItemPosition != position) {
+                        expandItemPosition?.let { expandPosition ->
                             expandItemPosition = position
-                        } else {
-                            expandItemPosition = null
+                            notifyItemChanged(expandPosition)
                         }
                     }
-                    view.toggle()
+                    expandItemPosition = position
+                } else {
+                    expandItemPosition = null
                 }
-            } else if (item.notExpandableClickListener != null) {
-                view.setData(null)
-                view.setOnClickListener {
-                    item.notExpandableClickListener.invoke()
-                }
+            }
+            view.toggle()
+            item.isExpanded = view.isExpanded
+        }
+
+        private fun initNotExpandableRow(item: ExpandableItem) {
+            view.setData(null)
+            view.setOnClickListener {
+                item.notExpandableClickListener?.invoke()
             }
         }
     }

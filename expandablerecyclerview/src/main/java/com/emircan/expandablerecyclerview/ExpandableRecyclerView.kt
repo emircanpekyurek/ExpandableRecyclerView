@@ -12,7 +12,8 @@ class ExpandableRecyclerView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : RecyclerView(context, attrs, defStyleAttr) {
 
-    private var isSingleExpandItem: Boolean = true
+    private var isSingleExpandItem: Boolean
+    private var keepExpandCollapseState: Boolean
 
     init {
         layoutManager = LinearLayoutManager(context)
@@ -20,7 +21,10 @@ class ExpandableRecyclerView @JvmOverloads constructor(
             attrs,
             R.styleable.ExpandableRecyclerView,
         ).run {
-            isSingleExpandItem = getBoolean(R.styleable.ExpandableRecyclerView_singleExpandItem, true)
+            isSingleExpandItem =
+                getBoolean(R.styleable.ExpandableRecyclerView_singleExpandItem, true)
+            keepExpandCollapseState =
+                getBoolean(R.styleable.ExpandableRecyclerView_keepExpandCollapseState, true)
             recycle()
         }
     }
@@ -28,9 +32,12 @@ class ExpandableRecyclerView @JvmOverloads constructor(
     fun setData(
         @LayoutRes layoutId: Int,
         list: List<ExpandableItem>,
-        singleExpandItem: Boolean = isSingleExpandItem
+        isSingleExpandItem: Boolean = this.isSingleExpandItem,
+        keepExpandCollapseState: Boolean = this.keepExpandCollapseState
     ) {
-        isSingleExpandItem = singleExpandItem
-        adapter = ExpandableRecyclerAdapter(layoutId, list, singleExpandItem)
+        this.isSingleExpandItem = isSingleExpandItem
+        this.keepExpandCollapseState = keepExpandCollapseState
+        adapter =
+            ExpandableRecyclerAdapter(layoutId, list, isSingleExpandItem, keepExpandCollapseState)
     }
 }

@@ -24,5 +24,6 @@
 
     <declare-styleable name="ExpandableRecyclerView">
         <attr name="singleExpandItem" format="boolean" />
+        <attr name="keepExpandCollapseState" format="boolean" />
     </declare-styleable>
 </resources>

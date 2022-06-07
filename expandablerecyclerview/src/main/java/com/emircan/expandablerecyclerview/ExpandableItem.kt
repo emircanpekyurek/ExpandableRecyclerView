@@ -6,4 +6,6 @@ data class ExpandableItem(
     val title: String,
     val adapter: RecyclerView.Adapter<*>? = null,
     val notExpandableClickListener: (() -> Unit)? = null
-)
+) {
+    var isExpanded: Boolean = false
+}
