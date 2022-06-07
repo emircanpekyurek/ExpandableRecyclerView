@@ -8,7 +8,7 @@
 ## Installation
 (app) build.gradle:
 ```gradle
-implementation 'com.github.emircanpekyurek:ExpandableRecyclerView:1.0.4'
+implementation 'com.github.emircanpekyurek:ExpandableRecyclerView:1.0.5'
 ```
 
 #### AND
@@ -73,20 +73,25 @@ add ExpandableRecyclerView to activity or fragment:
 <com.emircan.expandablerecyclerview.ExpandableRecyclerView
     android:id="@+id/expandableRecyclerView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    app:keepExpandCollapseState="true"
+    app:singleExpandItem="true" /> <!--default values is true-->
 ```
 use setData function:
 
 ```kotlin
 val adapter = ... //RecyclerView adapter
 val list = listOf<ExpandableItem>(ExpandableItem("Item 1", adapter))
-val singleExpandItem = true //for single expandable
-expandableRecyclerView.setData(R.layout.custom_expandable_recycler_view, list, singleExpandItem)
+expandableRecyclerView.setData(R.layout.custom_expandable_recycler_view, list)
+//or add optional values:
+val isSingleExpandItem = true //or app:singleExpandItem in xml (for single expandable)
+val keepExpandCollapseState = true //or use app:keepExpandCollapseState in xml (for keep state)
+expandableRecyclerView.setData(R.layout.custom_expandable_recycler_view, list, isSingleExpandItem, keepExpandCollapseState)
 ```
 
 
 
-#### Custom Attributes:
+#### ExpandableItemView - Custom Attributes:
 | Attribute | Description |
 | --- | --- |
 | `expanded_icon` | expanded icon  |
@@ -103,3 +108,9 @@ expandableRecyclerView.setData(R.layout.custom_expandable_recycler_view, list, s
 | `android:orientation` | horizontal or vertical for LinearLayoutManager |
 | `recycler_span_count` | spanCount for Grid |
 | `recycler_layout_manager` | LinearLayoutManager, GridLayoutManager or StaggeredGridLayoutManager |
+
+#### ExpandableRecyclerView - Custom Attributes:
+| Attribute | Description |
+| --- | --- |
+| `keepExpandCollapseState` | keep recyclerView row state after than scroll  |
+| `isSingleExpandItem` | allows only one row to be expanded |
