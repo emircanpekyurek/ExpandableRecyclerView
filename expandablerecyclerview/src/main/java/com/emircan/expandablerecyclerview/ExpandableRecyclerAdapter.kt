@@ -13,6 +13,17 @@ class ExpandableRecyclerAdapter(
 ) : RecyclerView.Adapter<ExpandableRecyclerAdapter.ViewHolder>() {
 
     private var expandItemPosition: Int? = null
+    var expandableItemPositions: ArrayList<Int>
+        get() = ArrayList(list.mapIndexedNotNull { index, expandableItem -> if (expandableItem.isExpanded) index else null })
+        set(value) {
+            value.forEach { index ->
+                if (singleExpandItem) {
+                    expandItemPosition = index
+                }
+                list.getOrNull(index)?.isExpanded = true
+                notifyItemChanged(index)
+            }
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

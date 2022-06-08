@@ -1,6 +1,8 @@
 package com.emircan.expandablerecyclerview
 
 import android.content.Context
+import android.os.Bundle
+import android.os.Parcelable
 import android.util.AttributeSet
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,5 +41,28 @@ class ExpandableRecyclerView @JvmOverloads constructor(
         this.keepExpandCollapseState = keepExpandCollapseState
         adapter =
             ExpandableRecyclerAdapter(layoutId, list, isSingleExpandItem, keepExpandCollapseState)
+    }
+
+    override fun onSaveInstanceState(): Parcelable {
+        return Bundle().apply {
+            putParcelable(KEY_SUPER_SAVE_STATE, super.onSaveInstanceState())
+            (adapter as? ExpandableRecyclerAdapter)?.let {
+                putIntegerArrayList(KEY_EXPAND_ITEM_POSITIONS, it.expandableItemPositions)
+            }
+        }
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        val superState: Parcelable? = (state as? Bundle)?.run {
+            (adapter as? ExpandableRecyclerAdapter)?.expandableItemPositions =
+                getIntegerArrayList(KEY_EXPAND_ITEM_POSITIONS) ?: arrayListOf()
+            getParcelable<Parcelable>(KEY_SUPER_SAVE_STATE)
+        } ?: state
+        super.onRestoreInstanceState(superState)
+    }
+
+    companion object {
+        private const val KEY_SUPER_SAVE_STATE = "KEY_SUPER_SAVE_STATE"
+        private const val KEY_EXPAND_ITEM_POSITIONS = "KEY_EXPAND_ITEM_POSITIONS"
     }
 }
